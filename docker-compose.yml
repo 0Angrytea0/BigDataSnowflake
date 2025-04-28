@@ -1,0 +1,13 @@
+version: '3.1'
+services:
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER:   labuser
+      POSTGRES_PASSWORD: labpass
+      POSTGRES_DB:     petsdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+      - ./исходные данные:/var/lib/postgresql/data/import
