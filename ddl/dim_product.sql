@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS dim_product;
 CREATE TABLE dim_product (
   product_sk         SERIAL PRIMARY KEY,
-  product_id         BIGINT   UNIQUE,   -- sale_product_id
+  product_id         BIGINT   UNIQUE,   
   name               TEXT     NOT NULL,
   category           TEXT,
   weight             NUMERIC,
@@ -14,5 +14,5 @@ CREATE TABLE dim_product (
   reviews            INT,
   release_date       DATE,
   expiry_date        DATE,
-  unit_price         NUMERIC       -- product_price из staging
+  unit_price         NUMERIC       
 );
