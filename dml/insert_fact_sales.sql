@@ -21,12 +21,12 @@ SELECT
   md.product_price
 FROM mock_data md
 
-JOIN dim_date     d   ON md.sale_date           = d.sale_date   AND d.source_file = md.source_file
+JOIN dim_date     d   ON md.sale_date           = d.sale_date 
 JOIN dim_customer c   ON md.sale_customer_id    = c.customer_id AND c.source_file = md.source_file
 JOIN dim_seller   s   ON md.sale_seller_id      = s.seller_id   AND s.source_file = md.source_file
 JOIN dim_product  p   ON md.sale_product_id     = p.product_id  AND p.source_file = md.source_file
-JOIN dim_store    st  ON md.store_name          = st.name       AND st.source_file = md.source_file
-JOIN dim_supplier sup ON md.supplier_name       = sup.name      AND sup.source_file = md.source_file
+JOIN dim_store    st  ON md.store_name          = st.name    
+JOIN dim_supplier sup ON md.supplier_name       = sup.name    
 
 WHERE md.sale_customer_id IS NOT NULL
   AND md.sale_seller_id   IS NOT NULL
