@@ -1,5 +1,6 @@
 INSERT INTO dim_product (
   product_id,
+  source_file,
   name,
   category,
   weight,
@@ -16,6 +17,7 @@ INSERT INTO dim_product (
 )
 SELECT
   sale_product_id      AS product_id,
+  source_file,          
   product_name         AS name,
   product_category     AS category,
   product_weight       AS weight,
@@ -46,11 +48,11 @@ FROM (
     product_expiry_date,
     product_price,
     ROW_NUMBER() OVER (
-      PARTITION BY sale_product_id
-      ORDER BY sale_date
+      PARTITION BY source_file, sale_product_id
+      ORDER BY sale_date DESC
     ) AS rn
   FROM mock_data
 ) t
 WHERE t.rn = 1
   AND sale_product_id IS NOT NULL
-ON CONFLICT (product_id) DO NOTHING;
+ON CONFLICT (source_file, product_id) DO NOTHING;
