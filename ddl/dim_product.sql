@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS dim_product;
 CREATE TABLE dim_product (
   product_sk         SERIAL PRIMARY KEY,
   source_file        TEXT   NOT NULL,
-  product_id         BIGINT   UNIQUE,   
+  product_id         BIGINT NOT NULL,   
   name               TEXT     NOT NULL,
   category           TEXT,
   weight             NUMERIC,
