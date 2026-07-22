@@ -1,3 +1,6 @@
+DROP TABLE IF EXISTS mock_data_buffer;
+DROP TABLE IF EXISTS mock_data;
+
 CREATE TABLE mock_data
 (
   id                       BIGINT,
