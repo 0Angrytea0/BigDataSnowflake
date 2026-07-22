@@ -32,6 +32,7 @@ FROM (
       ORDER BY sale_date DESC  
     ) AS rn
   FROM mock_data
+  WHERE sale_customer_id IS NOT NULL
 ) t
 WHERE t.rn = 1
 ON CONFLICT (source_file, customer_id) DO NOTHING;
