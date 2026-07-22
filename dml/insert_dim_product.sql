@@ -34,6 +34,7 @@ SELECT
 FROM (
   SELECT
     sale_product_id,
+    source_file,
     product_name,
     product_category,
     product_weight,
@@ -52,6 +53,7 @@ FROM (
       ORDER BY sale_date DESC
     ) AS rn
   FROM mock_data
+  WHERE sale_product_id IS NOT NULL
 ) t
 WHERE t.rn = 1
   AND sale_product_id IS NOT NULL
