@@ -1,4 +1,5 @@
 INSERT INTO dim_customer (
+  source_file,
   customer_id,
   first_name,
   last_name,
@@ -8,6 +9,7 @@ INSERT INTO dim_customer (
   postal_code
 )
 SELECT
+  source_file,
   sale_customer_id,
   customer_first_name,
   customer_last_name,
@@ -17,6 +19,7 @@ SELECT
   customer_postal_code
 FROM (
   SELECT
+    source_file,
     sale_customer_id,
     customer_first_name,
     customer_last_name,
@@ -25,10 +28,10 @@ FROM (
     customer_country,
     customer_postal_code,
     ROW_NUMBER() OVER (
-      PARTITION BY sale_customer_id
-      ORDER BY sale_date  
+      PARTITION BY source_file, sale_customer_id
+      ORDER BY sale_date DESC  
     ) AS rn
   FROM mock_data
 ) t
 WHERE t.rn = 1
-ON CONFLICT (customer_id) DO NOTHING;
+ON CONFLICT (source_file, customer_id) DO NOTHING;
