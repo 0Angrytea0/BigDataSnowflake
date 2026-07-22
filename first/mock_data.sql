@@ -49,25 +49,144 @@ CREATE TABLE mock_data
   supplier_phone           TEXT,
   supplier_address         TEXT,
   supplier_city            TEXT,
-  supplier_country         TEXT
+  supplier_country         TEXT,
+  source_file              TEXT NOT NULL
 );
-COPY mock_data FROM '/var/lib/postgresql/data/import/MOCK_DATA.csv'
-  WITH (FORMAT csv, HEADER true);
-COPY mock_data FROM '/var/lib/postgresql/data/import/MOCK_DATA (1).csv' 
-  WITH (FORMAT csv, HEADER true);
-COPY mock_data FROM '/var/lib/postgresql/data/import/MOCK_DATA (2).csv' 
-  WITH (FORMAT csv, HEADER true);
-COPY mock_data FROM '/var/lib/postgresql/data/import/MOCK_DATA (3).csv' 
-  WITH (FORMAT csv, HEADER true);
-COPY mock_data FROM '/var/lib/postgresql/data/import/MOCK_DATA (4).csv' 
-  WITH (FORMAT csv, HEADER true);
-COPY mock_data FROM '/var/lib/postgresql/data/import/MOCK_DATA (5).csv' 
-  WITH (FORMAT csv, HEADER true);
-COPY mock_data FROM '/var/lib/postgresql/data/import/MOCK_DATA (6).csv' 
-  WITH (FORMAT csv, HEADER true);
-COPY mock_data FROM '/var/lib/postgresql/data/import/MOCK_DATA (7).csv' 
-  WITH (FORMAT csv, HEADER true);
-COPY mock_data FROM '/var/lib/postgresql/data/import/MOCK_DATA (8).csv' 
-  WITH (FORMAT csv, HEADER true);
-COPY mock_data FROM '/var/lib/postgresql/data/import/MOCK_DATA (9).csv' 
-  WITH (FORMAT csv, HEADER true);
+
+CREATE TEMP TABLE mock_data_buffer
+(LIKE mock_data INCLUDING DEFAULTS);
+
+ALTER TABLE mock_data_buffer
+DROP COLUMN source_file;
+
+TRUNCATE TABLE mock_data_buffer;
+
+COPY mock_data_buffer
+FROM '/var/lib/postgresql/data/import/MOCK_DATA.csv'
+WITH (FORMAT csv, HEADER true);
+
+INSERT INTO mock_data
+SELECT
+  b.*,
+  'MOCK_DATA.csv'
+FROM mock_data_buffer b;
+
+
+TRUNCATE TABLE mock_data_buffer;
+
+COPY mock_data_buffer
+FROM '/var/lib/postgresql/data/import/MOCK_DATA (1).csv'
+WITH (FORMAT csv, HEADER true);
+
+INSERT INTO mock_data
+SELECT
+  b.*,
+  'MOCK_DATA (1).csv'
+FROM mock_data_buffer b;
+
+
+TRUNCATE TABLE mock_data_buffer;
+
+COPY mock_data_buffer
+FROM '/var/lib/postgresql/data/import/MOCK_DATA (2).csv'
+WITH (FORMAT csv, HEADER true);
+
+INSERT INTO mock_data
+SELECT
+  b.*,
+  'MOCK_DATA (2).csv'
+FROM mock_data_buffer b;
+
+
+TRUNCATE TABLE mock_data_buffer;
+
+COPY mock_data_buffer
+FROM '/var/lib/postgresql/data/import/MOCK_DATA (3).csv'
+WITH (FORMAT csv, HEADER true);
+
+INSERT INTO mock_data
+SELECT
+  b.*,
+  'MOCK_DATA (3).csv'
+FROM mock_data_buffer b;
+
+
+TRUNCATE TABLE mock_data_buffer;
+
+COPY mock_data_buffer
+FROM '/var/lib/postgresql/data/import/MOCK_DATA (4).csv'
+WITH (FORMAT csv, HEADER true);
+
+INSERT INTO mock_data
+SELECT
+  b.*,
+  'MOCK_DATA (4).csv'
+FROM mock_data_buffer b;
+
+
+TRUNCATE TABLE mock_data_buffer;
+
+COPY mock_data_buffer
+FROM '/var/lib/postgresql/data/import/MOCK_DATA (5).csv'
+WITH (FORMAT csv, HEADER true);
+
+INSERT INTO mock_data
+SELECT
+  b.*,
+  'MOCK_DATA (5).csv'
+FROM mock_data_buffer b;
+
+
+TRUNCATE TABLE mock_data_buffer;
+
+COPY mock_data_buffer
+FROM '/var/lib/postgresql/data/import/MOCK_DATA (6).csv'
+WITH (FORMAT csv, HEADER true);
+
+INSERT INTO mock_data
+SELECT
+  b.*,
+  'MOCK_DATA (6).csv'
+FROM mock_data_buffer b;
+
+
+TRUNCATE TABLE mock_data_buffer;
+
+COPY mock_data_buffer
+FROM '/var/lib/postgresql/data/import/MOCK_DATA (7).csv'
+WITH (FORMAT csv, HEADER true);
+
+INSERT INTO mock_data
+SELECT
+  b.*,
+  'MOCK_DATA (7).csv'
+FROM mock_data_buffer b;
+
+
+TRUNCATE TABLE mock_data_buffer;
+
+COPY mock_data_buffer
+FROM '/var/lib/postgresql/data/import/MOCK_DATA (8).csv'
+WITH (FORMAT csv, HEADER true);
+
+INSERT INTO mock_data
+SELECT
+  b.*,
+  'MOCK_DATA (8).csv'
+FROM mock_data_buffer b;
+
+
+TRUNCATE TABLE mock_data_buffer;
+
+COPY mock_data_buffer
+FROM '/var/lib/postgresql/data/import/MOCK_DATA (9).csv'
+WITH (FORMAT csv, HEADER true);
+
+INSERT INTO mock_data
+SELECT
+  b.*,
+  'MOCK_DATA (9).csv'
+FROM mock_data_buffer b;
+
+
+DROP TABLE mock_data_buffer;
